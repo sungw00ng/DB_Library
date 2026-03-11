@@ -143,9 +143,33 @@ order_id|member_id|order_date         |total_price|order_item_id|order_id|book_i
     -> Filter: (oi.book_id = 8939)  (cost=0.255 rows=0.05) (actual time=0.0668..0.0688 rows=1 loops=1)
         -> Index lookup on oi using idx_orderitem_order (order_id = o.order_id)  (cost=0.255 rows=1) (actual time=0.065..0.0669 rows=1 loops=1)
 
+```
+
+- 바뀌어야 할 부분
+```sql
 -- 회원 + 특정 책일 때는 결과 같음. (복합인덱스를 쓰지 않았음.)
 -- order_id 인덱스에서 row 1개가 나왔으니, 굳이 book_id 필터를 하였는데 비용이 거의 0이니 굳이 복합 인덱스 필요 없다고 판단한 듯 싶다.
--- rows가 많았다면 사용했을듯.
- 
+-- 따라서 복합 인덱스를 지워야 한다.
+
+DROP INDEX idx_orderitem_order_book ON order_item;
+
+```
+
+- 재확인 및 검토
+```sql
+SELECT TABLE_NAME, INDEX_NAME, COLUMN_NAME, NON_UNIQUE
+FROM INFORMATION_SCHEMA.STATISTICS
+WHERE TABLE_SCHEMA = 'bookstore'
+ORDER BY TABLE_NAME, INDEX_NAME;
+
+TABLE_NAME|INDEX_NAME         |COLUMN_NAME  |NON_UNIQUE|
+----------+-------------------+-------------+----------+
+book      |PRIMARY            |book_id      |         0|
+member    |PRIMARY            |member_id    |         0|
+order_item|idx_orderitem_book |book_id      |         1|
+order_item|idx_orderitem_order|order_id     |         1|
+order_item|PRIMARY            |order_item_id|         0|
+orders    |idx_orders_member  |member_id    |         1|
+orders    |PRIMARY            |order_id     |         0|
 ```
 
