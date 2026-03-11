@@ -23,11 +23,11 @@ JOIN book b ON oi.book_id = b.book_id;
 
 - 분석
 ```
-insert 10개라서 nl 조인인건 당연하다고 봄.
-orders -> member -> order_item -> book 흐름임.
-Covering index scan on o using member_id -> orders 테이블에서 member_id 인덱스를 사용
-Single-row index lookup on m using PRIMARY -> member PK(member_id) 인덱스 사용
-Index lookup on oi using order_id -> order_item.order_id 인덱스 사용
-Single-row index lookup on b using PRIMARY -> book.book_id PK 인덱스 사용
+데이터 적으니 nl조인.
+순서는
+1. orders 읽기
+2. member PK lookup
+3. order_item index lookup
+4. book PK lookup
 ```
 
