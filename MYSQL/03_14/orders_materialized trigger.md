@@ -75,7 +75,7 @@ end;
 ```
 
 - delete test
-```
+```sql
 DELETE FROM order_item WHERE order_item_id = 1;
 SELECT * FROM orders_materialized WHERE order_id = 40438;
 
