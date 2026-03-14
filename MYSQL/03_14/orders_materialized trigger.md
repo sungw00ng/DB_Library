@@ -84,4 +84,15 @@ order_id|name   |total_price|
    40438|회원32268|    1502941|
 
 1602940-99999=1502941(성공)
+
 ```
+
+- 요약
+
+| 트리거                     | 이벤트    | 동작                       |
+| ----------------------- | ------ | ------------------------ |
+| `trg_order_item_insert` | INSERT | `total_price`에 주문 금액 추가  |
+| `trg_order_item_update` | UPDATE | 기존 금액 차감 후 새 금액 추가       |
+| `trg_order_item_delete` | DELETE | `total_price`에서 주문 금액 차감 |
+
+
