@@ -36,7 +36,7 @@ order_id|name   |total_price|
 --------+-------+-----------+
        1|회원36698|    1903725|
 
--- total_price가 2만 오름(성공)
+-- total_price가 20000 오름(성공)
 ```
 
 - trg_order_item_update
