@@ -27,5 +27,29 @@ member_id|name|email         |password|phone      |created_at         |member_ty
 - member_id=1이 is_deleted=1, deleted_at=2026-03-14 15:15:19 로 표시되고 실제 데이터는 살아있음.
 ```
 
+- 블랙리스트 기반 재가입 차단 전략 blacklist 
+```sql
+create table blacklist (
+	blacklist_id int auto_increment primary key,
+	email varchar(100),
+	reason varchar(255),
+	created_at datetime DEFAULT  now()
+);
+
+-- 탈퇴 및 블랙리스트 회원 추가
+insert into blacklist(email, reason)
+select email, '회원 탈퇴' from member where member_id=1;
+
+-- 재가입 시도
+select * from blacklist where email='user1@test.com';
+
+blacklist_id|email         |reason|created_at         |
+------------+--------------+------+-------------------+
+           1|user1@test.com|회원 탈퇴 |2026-03-14 15:23:53|
+```
+
+
+
+
 
 
