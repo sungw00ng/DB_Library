@@ -248,7 +248,7 @@ CREATE INDEX k_9 ON sbtest9(k);
 CREATE INDEX k_10 ON sbtest10(k);
 ```
 
--read_only_report
+- read_only_report
 ```
 SQL statistics:
     queries performed:
@@ -289,4 +289,32 @@ Threads fairness:
 sysbench가 PK 기반 조회를 많이 해서 index overhead가 발생한 것 같다.
 인덱스가 있을 때의 효과가 잘 안 보이는 한계가 있는듯.
 */
+```
+
+- cleanup
+```sql
+sysbench oltp_read_write \
+> --db-driver=mysql \
+> --mysql-host=127.0.0.1 \
+> --mysql-port=3306 \
+> --mysql-user=root \
+> --mysql-password=558agers1 \
+> --mysql-db=bookstore \
+> --tables=10 \
+> --table-size=100000 \
+> cleanup
+
+-- result
+sysbench 1.0.20 (using system LuaJIT 2.1.1727870382)
+ 
+Dropping table 'sbtest1'...
+Dropping table 'sbtest2'...
+Dropping table 'sbtest3'...
+Dropping table 'sbtest4'...
+Dropping table 'sbtest5'...
+Dropping table 'sbtest6'...
+Dropping table 'sbtest7'...
+Dropping table 'sbtest8'...
+Dropping table 'sbtest9'...
+Dropping table 'sbtest10'...
 ```
