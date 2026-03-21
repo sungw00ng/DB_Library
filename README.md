@@ -48,7 +48,7 @@ warehouse1            |         1|
   - 7-2. CH2_상품 좋아요 & Denormalized Counter <br>
   - 7-3. CH3_상품판매통계 book_sales_stat <br>
   - 7-4. CH4_사용자포인트변동내역 <br>
-9. sysbench 부하테스트 <br>
+8. sysbench 부하테스트 <br>
   - 8-1. sysbench 
   ```
   oltp_read_write, oltp_read_only
